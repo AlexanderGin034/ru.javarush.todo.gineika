@@ -48,7 +48,7 @@ public class TaskService {
 
     public void delete(int id) {
         Optional<Task> taskOptional = taskDao.findById(id);
-        if (taskOptional.isPresent()) {
+        if (!taskOptional.isPresent()) {
             throw new RuntimeException("Not found");
         }
 

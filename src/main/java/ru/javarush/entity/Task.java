@@ -1,6 +1,11 @@
 package ru.javarush.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+@Getter @Setter
+@EqualsAndHashCode
+@ToString
 
 @Entity
 @Table(schema = "todo", name = "task")
