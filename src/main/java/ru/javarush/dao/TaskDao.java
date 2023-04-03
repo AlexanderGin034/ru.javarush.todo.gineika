@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javarush.entity.Task;
 
@@ -38,10 +39,10 @@ public class TaskDao implements Dao<Task> {
         return Optional.ofNullable(getSession().find(Task.class, id));
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void saveOrUpdate(Task task) {
-        getSession().persist(task);
+        getSession().saveOrUpdate(task);
     }
 
     @Transactional

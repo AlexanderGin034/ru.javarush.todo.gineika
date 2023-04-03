@@ -2,6 +2,7 @@ package ru.javarush.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.javarush.entity.Task;
@@ -36,6 +37,7 @@ public class TaskController {
         return "tasks";
     }
 
+    @Transactional
     @PostMapping("/{id}")
     public String update(Model model, @PathVariable Integer id, @RequestBody TaskInfo info) {
         if (Objects.isNull(id) || id <= 0) {
