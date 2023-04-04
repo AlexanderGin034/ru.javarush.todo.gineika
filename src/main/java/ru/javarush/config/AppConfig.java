@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Slf4j
-//@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.properties")
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
 public class AppConfig {
@@ -52,7 +52,7 @@ public class AppConfig {
         log.info("start up getting a dataSource");
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setDriverClassName("com.p6spy.engine.spy.P6SpyDriver");
-        dataSource.setJdbcUrl("jdbc:p6spy:mysql://localhost:3306/todo");
+        dataSource.setJdbcUrl("jdbc:p6spy:mysql://db:3306/todo");
         dataSource.setUsername("root");
         dataSource.setPassword("qwerty");
         dataSource.setMaximumPoolSize(10);
