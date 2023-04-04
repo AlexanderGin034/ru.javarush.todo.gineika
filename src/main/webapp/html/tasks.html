@@ -9,40 +9,68 @@
     <script src="/script/my.js"></script>
 </head>
 <body>
+<div>
+    <table class="table mx-auto p-10" style="width: 700px;">
+        <thead>
+        <tr>
+            <th scope="col-1">ID</th>
+            <th scope="col-4">Description</th>
+            <th scope="col-4">Status</th>
+            <th scope="col-4"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}"/>
+            <td th:text="${task.description}" th:id="'description_' + ${task.id}"/>
+            <td th:text="${task.status}" th:id="'status_' + ${task.id}"/>
+            <td>
+                <button type="button" class="btn btn-success" th:id="'edit_' + ${task.id}"
+                        th:onclick="'edit_task(' + ${task.id} +')'">edit
+                </button>
+                <button type="button" class="btn btn-danger" th:id="'delete_' + ${task.id}"
+                        th:onclick="'delete_task(' + ${task.id} +')'">delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--<div class="d-flex justify-content-center" style="width: 800px; margin: 10px">-->
+<!--    <span class="font-monospace">Add new task</span>-->
+<!--</div>-->
+<div class="mx-auto p-10" style="width: 700px;">
     <div>
-        <table class="table mx-auto p-10" style="width: 700px;">
-            <thead>
-            <tr>
-                <th scope="col-1">ID</th>
-                <th scope="col-4">Description</th>
-                <th scope="col-4">Status</th>
-                <th scope="col-4"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="task : ${tasks}">
-                <td th:text="${task.id}"/>
-                <td th:text="${task.description}" th:id="'description_' + ${task.id}"/>
-                <td th:text="${task.status}" th:id="'status_' + ${task.id}"/>
-                <td>
-                    <button type="button" class="btn btn-success" th:id="'edit_' + ${task.id}"
-                            th:onclick="'edit_task(' + ${task.id} +')'">edit</button>
-                    <button type="button" class="btn btn-danger" th:id="'delete_' + ${task.id}"
-                            th:onclick="'delete_task(' + ${task.id} +')'">delete</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="d-flex flex-column mb-3">
+            <div>
+                <span class="font-monospace">Add new task</span>
+            </div>
+            <div class="d-flex justify-content-start" style="width: 520px; margin-top: 2px;">
+                <input type="text" class="form-control" placeholder="Description" aria-label="Username"
+                       id="description_new" style="margin-right: 10px;">
+                <label for="status_new"></label>
+                <select class="form-select" id="status_new" style="width: 200px;">
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="DONE">DONE</option>
+                    <option value="PAUSED">PAUSED</option>
+                </select>
+                <button type="button" class="btn btn-success" id="save_new"
+                        onclick="add_task()" style="margin-left: 50px;">
+                    save
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="d-flex justify-content-center">
-        <nav aria-label="...">
-            <ul class="pagination pagination-sm">
-                <li class="page-item" th:each="pageNumber : ${page_numbers}"
-                    th:classappend="${pageNumber == current_page? 'active': ''}">
-                    <a class="page-link" th:href="@{/(page=${pageNumber}, limit=10)}" th:text="${pageNumber}"></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+</div>
+<div class="d-flex justify-content-center" style="margin: 20px;">
+    <nav aria-label="...">
+        <ul class="pagination pagination-sm">
+            <li class="page-item" th:each="pageNumber : ${page_numbers}"
+                th:classappend="${pageNumber == current_page? 'active': ''}">
+                <a class="page-link" th:href="@{/(page=${pageNumber}, limit=10)}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>
